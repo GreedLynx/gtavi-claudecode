@@ -7,6 +7,11 @@ description: Write on-screen hooks for GTA 6 clips. Use whenever a clip needs a 
 
 Write 3 options per clip. Sentence case. Short: 3 to 9 words fit the hook box.
 
+Read `AGENTS.md` and the selected `jobs/<id>/candidates.md`.
+Watch or inspect the selected video moment before writing hooks.
+The transcript may contain recognition errors; verify the event against
+the video. Use the page's language and niche angle.
+
 ## What works
 
 - Number promise: "3 things you missed in this trailer"
@@ -24,7 +29,7 @@ For a streamer's reaction clip the title sits on the seam between face and game 
 - "Kai LOST IT when the cops showed up in GTA 6"
 - "Fighting Cops in GTA 6" (outlined style: short, 3 to 6 words)
 
-Describe what happens on screen. Never put words in the streamer's mouth: no quotes they did not say, no made-up opinions. Emojis are optional, at most 2.
+Describe what happens on screen. Never put words in the streamer's mouth: no quotes they did not say, no made-up opinions. Emojis are optional, at most one.
 
 ## What does not work
 
@@ -37,8 +42,9 @@ Describe what happens on screen. Never put words in the streamer's mouth: no quo
 1. The clip must deliver the hook. If the hook says 3 things, show 3. No clickbait.
 2. No spoilers for story moments in launch week. Label such clips SPOILER in the caption, not in the hook.
 3. Never imply the page is Rockstar. Never write "official" for fan content.
-4. Use "GTA 6". One emoji at most.
-5. Do not reuse the same hook within a week. Check `log.md`.
+4. Mention "GTA 6" only when the verified clip is actually about GTA 6.
+Use at most one emoji.
+5. Do not reuse the same hook within a week. Check `<page-folder>/log.md`.
 6. Facts in the hook must be true and verified. Numbers must match the clip.
 
 Return the 3 options and mark your pick.

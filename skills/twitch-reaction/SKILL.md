@@ -1,35 +1,59 @@
 ---
 name: twitch-reaction
-description: Watch the biggest GTA 6 Twitch streamer and make reaction clips: face on top, game below, big title. Use when the user wants streamer reaction clips, "face on top" clips, Twitch clips, or asks who is streaming GTA 6 right now.
+description: Create a reaction clip from an authorized Twitch stream or VOD, with the streamer above gameplay and a title between them. Use when the user asks for a Twitch reaction clip.
 ---
 
 # Twitch reaction clips
 
-Face on top, game below, a big title on the seam. The format of most viral GTA 6 streamer clips.
+Run commands from the repository root. Read `AGENTS.md` first.
+Use a stream covered by a campaign whose rules are known, or one whose
+creator has permitted the intended use. Credit alone is not permission.
 
-## 1. Find the streamer (no Twitch account or key needed)
+## 1. Find a source
 
-`python "${CLAUDE_PLUGIN_ROOT}/scripts/streams.py" --query "gta 6"` lists the top live Grand Theft Auto VI streams on Twitch and YouTube, ranked by viewers. Pick a streamer who runs a clipping campaign (check `campaigns.md`), or one whose clips you have permission to post.
+Read `skills/stream-finder/SKILL.md`. To search for live streams, run:
 
-## 2. Get the moment
+`python scripts/streams.py --query "gta 6"`
 
-- Live: `python "${CLAUDE_PLUGIN_ROOT}/scripts/live.py" https://twitch.tv/<login> --minutes 60` records the stream, reads Twitch chat anonymously and cuts a clip every time chat explodes.
-- After the fact: `python "${CLAUDE_PLUGIN_ROOT}/scripts/moments.py" <twitch VOD or clip URL> --top 8` scores the VOD and writes `candidates.md`.
+Check the relevant campaign in `<page-folder>/campaigns.md` and its
+complete rules in a separate campaign rules file. Confirm that this
+creator and source footage are allowed.
+
+## 2. Find a moment
+
+For a live stream, read `skills/live-mode/SKILL.md` before recording:
+
+`python scripts/live.py https://twitch.tv/<login> --minutes 60`
+
+Review a generated `jobs/<live-id>/live/spike_<n>.mp4`, then run
+`moment-finder` on that file to create a new job with `candidates.json`.
+
+For a finished VOD or clip, read `skills/moment-finder/SKILL.md` and run:
+
+`python scripts/moments.py "<vod-or-local-file>" --top 8`
+
+Use the job ID printed by `moments.py` for the next step.
 
 ## 3. Cut the reaction clip
 
-```
-python "${CLAUDE_PLUGIN_ROOT}/scripts/cut.py" jobs/<id> --pick 1 --layout react --cam auto \
-  --title "Speed REALIZED why GTA 6 took ROCKSTAR 13 YEARS" --title-style box --captions bubble
-```
+Read `skills/hook-writer/SKILL.md` and verify the moment visually.
+Write a title that describes what actually happened. Then run:
 
-- `--cam auto` finds the streamer's webcam itself (face detection plus the webcam frame around it). It prints where it found the cam. If it finds no stable face it falls back to the blur layout and says so. Check the first frame once; if the crop is wrong, pass `--cam x:y:w:h` fractions.
-- `--title-style box`: white band with bold black text on the seam. `--title-style outline`: white text with a thick black outline across the top of the game, for short titles ("Fighting Cops in GTA 6").
-- `--captions bubble`: white speech bubble ("Oh my god!"). `word`: word-by-word captions. `none`: title only.
-- Write the title with `hook-writer` (reaction titles section).
+`python scripts/cut.py jobs/<id> --pick <n> --layout react --cam auto --title "VERIFIED TITLE" --title-style box --captions bubble`
 
-## Rules
+Replace `<id>`, `<n>`, and the title with actual values. Inspect the
+result at `jobs/<id>/edits/clip_<n>.mp4`.
 
-- Clip a streamer only inside their campaign or with permission. Credit them in the post caption, not on the video.
-- Titles describe what happened. Never invent a quote or an opinion.
-- Run `rule-check` before posting. No spoilers in the title during launch week.
+The `react` layout requires a detectable streamer face and gameplay.
+If detection fails, the script may skip the clip. Review its error;
+choose another moment or correct the camera region rather than claiming
+a reaction clip was created.
+
+## 4. Check and report
+
+Read `skills/rule-check/SKILL.md`. Check the finished clip against
+the complete rules for that one campaign. Inspect the crop, title,
+captions, audio, required assets, and caption credit manually.
+
+Report the clip path, source, creator credit, campaign check results,
+and any requirements still unknown. Do not upload automatically.

@@ -5,24 +5,39 @@ description: GTA 6 cheat codes and cheat-guide posts. Use when the user asks for
 
 # Cheat codes
 
-Answer only from `references/cheats.md`. Never add a code from memory.
+Read `AGENTS.md` and `skills/cheat-codes/references/cheats.md`.
+Treat the reference as a list of claims to verify, not proof that a
+code works. Check current primary sources or document a reproducible
+in-game test before describing a code as verified.
 
-## Make a 4-slide cheat carousel
+Use `skills/cheat-codes/references/cheats.md` as a research index.
+Verify each claim with current evidence before answering. Never add
+a code from memory or infer a missing button sequence.
 
-1. Cover: "GTA 6 cheat codes" + "PS5 and Xbox Series X|S" + one hook line (for example "The $250,000 cheat is real").
-2. How to enter: the 4 steps from the reference, plus the warning "Save first: cheats block saving, trophies and achievements for that session".
-3. Player and combat: money, focus, armor, ammo codes with their unlock tasks, D-pad arrows as big buttons.
-4. Vehicles and filters: spawns and screen filters with unlock tasks.
+## Prepare a cheat carousel
+
+- Cover: "GTA 6 cheat codes" and a hook that accurately reflects
+the verification status of the codes included.
+- Create the carousel only when enough codes and entry instructions
+have been verified. Include only verified steps, codes, unlock tasks,
+and warnings. If verification is insufficient, report that no
+publishable carousel can be prepared yet.
 
 Style: dark background, one accent color, arrows as rounded key caps, the page handle on every slide. Caption: HOW TO template from the playbook, credit "codes via GameSpot" (or the source you used).
 
 ## Rules
 
-- Post only codes with status `reported` or `verified`. Never post `unconfirmed` ones.
-- Before posting any cheat code, check that it appears in at least one guide listed in the reference. If a code is not listed, write "code not found yet" and never invent the arrows. Never repost codes from the "Fake codes going around" list.
-- Until the codes are verified in the game, say "reported" in the caption, not "confirmed".
+- Prepare publishable instructions only for codes verified through a
+documented in-game test or an authoritative official source. Keep
+`reported` codes in research notes; do not present them as working.
+- A guide listed in the reference is not sufficient proof that a code
+  works. Require an authoritative official source or a documented
+  in-game test. Never invent a missing button sequence or reuse entries
+  listed as fake. If a claim has not been verified, say so.
 - No mod menus, money glitches, GTA Online cheats or anything that breaks the rules of online play.
 
 ## After launch
 
-When a code is tested in the game, set its status to `verified` with who tested it and the date. If it fails, mark it `wrong` and post a correction.
+Record who tested the code, when, platform, game version, exact input,
+and observed result before marking it `verified`. If a test fails,
+record the failure; do not silently replace the code.

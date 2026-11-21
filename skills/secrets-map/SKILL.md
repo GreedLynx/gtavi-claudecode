@@ -1,28 +1,45 @@
 ---
 name: secrets-map
-description: Build and post a verified map of GTA 6 hidden spots, rare cars, collectibles, money spots and easter eggs found by creators. Use when the user wants secrets, hidden spots, easter eggs or evergreen "hidden in Leonida" tip posts, or says scan a video for secrets.
+description: Track and verify GTA 6 hidden spots, cars, collectibles, and easter eggs, then prepare post drafts. Use when the user asks about secrets or wants to scan a video for possible discoveries.
 ---
 
 # Secrets map
+
+Run commands from the repository root. Read `AGENTS.md` first.
+Store the database in `<page-folder>/secrets.csv`.
+A transcript match is a lead, not a verified game fact.
 
 Entries live in `secrets.csv` (id, category, name, where, how, source_channel, source_url_with_timestamp, found_on, status, verified_by, notes). Categories: place, money, car, collectible, easter_egg, other. Status: unverified, verified, wrong.
 
 ## Commands
 
-Run from the project folder with `.venv\Scripts\python scripts\secrets_map.py ...` (`--csv path` before the subcommand to use another file).
+Put `--csv <page-folder>/secrets.csv` before the subcommand:
 
-- `scan jobs/<id>`: reads `transcript.json` and `info.json`, finds secret-type mentions (hidden, secret, easter egg, money, cash, stash, collectible, rare car, location, spawn, unlock) and adds them as `unverified` with a quote and a `?t=` link to the source. Duplicates are skipped. Exploit-type mentions are skipped and printed.
-- `add --name N --where W --how H --category place --channel C --url U`: manual entry.
-- `verify <id> --by "<who/how>"`: only after the spot was checked in game (or confirmed by official material). Needs where, how and source channel filled in.
-- `wrong <id>`: the tip did not hold up.
-- `posts --out secrets-posts.md`: HOW TO tip and Spotlight drafts per verified entry, plus a "5 hidden spots in Leonida" carousel outline when 3 or more are verified.
-- `map --out secrets.md`: table grouped by category.
+- Scan a job:
+  `python scripts/secrets_map.py --csv <page-folder>/secrets.csv scan jobs/<id>`
+- Add an entry manually:
+  `python scripts/secrets_map.py --csv <page-folder>/secrets.csv add --name "NAME" --where "LOCATION" --how "STEPS" --category place --channel "CREATOR" --url "SOURCE_URL"`
+- Mark an entry verified, only after checking the actual claim:
+  `python scripts/secrets_map.py --csv <page-folder>/secrets.csv verify <id> --by "HOW AND WHEN VERIFIED"`
+- Mark an incorrect entry:
+  `python scripts/secrets_map.py --csv <page-folder>/secrets.csv wrong <id>`
+- Generate post drafts:
+  `python scripts/secrets_map.py --csv <page-folder>/secrets.csv posts --out <page-folder>/secrets-posts.md`
+- Generate a tracking map:
+  `python scripts/secrets_map.py --csv <page-folder>/secrets.csv map --out <page-folder>/secrets.md`
 
 ## Flow
 
-1. `scan` a transcribed video. Open each `?t=` link, read the quote, and rewrite the auto name/where/how in `secrets.csv` into a real tip.
-2. Check it in the game. `verify` or `wrong`.
-3. `posts`, then run `rule-check` on the drafts before they go out.
+1. Scan a transcribed GTA 6 video. Review the actual source moment
+   and correct transcript errors before editing an entry.
+2. Check each claimed location or item in the game or against reliable
+   official material. Record how it was checked. Use `verify` only when
+   the claim is substantiated; otherwise leave it `unverified` or mark
+   it `wrong`.
+3. Generate drafts from verified entries. Review the facts, source
+   credit, and destination platform's rules manually.
+   `scripts/check.py` requires an MP4; it cannot check a text-only draft.
+4. Show the drafts to the user. Do not post automatically.
 
 ## Rules
 

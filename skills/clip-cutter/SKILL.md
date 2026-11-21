@@ -1,25 +1,37 @@
 ---
 name: clip-cutter
-description: Cut a picked moment into a finished 1080x1920 vertical clip with word-by-word captions, and a hook box. Use after moment-finder, or when the user says "cut it", "make the clip", "make it vertical".
+description: Cut a picked moment into a 1080x1920 vertical clip with captions and a hook. Use after moment-finder or when the user asks to make a clip.
 ---
 
 # Clip cutter
 
-Run:
-
-`python "${CLAUDE_PLUGIN_ROOT}/scripts/cut.py" jobs/<id> --pick <n> --layout fill|blur|facecam --hook "TEXT"`
-
-- `fill`: crop the game video to fill the frame. Default for gameplay.
-- `blur`: full video centered over a blurred copy. Use when cropping would cut off the action.
-- `facecam`: gameplay with the streamer's camera shown. Use for reactions.
+Run all commands from the repository root.
 
 Before running:
+1. Read `skills/hook-writer/SKILL.md`.
+2. Prepare three hook options and select one that accurately describes the moment.
 
-1. Get 3 hook options from the `hook-writer` skill and use the best one.
+Run:
+
+`python scripts/cut.py jobs/<id> --pick <n> --layout <layout> --hook "HOOK TEXT"`
+
+For a technical test with an inaccurate transcript, add `--captions none`.
+For a real clip, correct inaccurate transcript words before rendering captions.
+
+Replace `<id>` and `<n>` with the selected job and moment. Replace
+`<layout>` with one of:
+- `fill`: crop gameplay to fill the frame.
+- `blur`: center the full video over a blurred background.
+- `facecam`: show gameplay and the streamer's camera for a reaction clip.
 
 After running:
-
-1. Output is an mp4 in `media/edits`. Check it is 1080x1920, the hook shows in the first 2 seconds, captions are readable. No credit text is burned into the video; the poster credits the creator in the post.
-2. Run `rule-check` on it. Fix and re-cut until it passes.
-3. Trim 7 to 30 seconds for most clips. End on the payoff.
-4. Show the human the file, and the caption text, and ask for "yes". Do not upload anything.
+1. Find the MP4 at `jobs/<id>/edits/clip_<n>.mp4`. Check its resolution,
+   hook timing, captions if enabled, audio, and ending.
+2. For a campaign clip, read `skills/rule-check/SKILL.md` and check it
+   against the applicable campaign rules. If the rules are unavailable,
+   report that the campaign check is incomplete.
+3. For a personal test clip, report the technical checks. Do not claim
+   that it passes campaign rules.
+4. Fix any observed problem and cut again if needed.
+5. Show the user the finished file, suggested caption, creator credit
+   when applicable, and check results. Do not upload it automatically.

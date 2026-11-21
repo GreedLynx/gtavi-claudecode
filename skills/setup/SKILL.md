@@ -5,14 +5,19 @@ description: First-run setup for the GTA 6 clip desk. Use when the user installs
 
 # Setup
 
-Do the work yourself. Ask the human only what is listed here.
+Perform the setup steps. Ask the user only for page details that are still missing.
+Report installation errors and the exact command that failed.
+Run commands from the repository root. Resolve paths such as
+`requirements.txt`, `scripts/`, and `skills/` relative to that directory.
+Check whether the required tools are already installed before installing
+anything.
 
 ## 1. Install tools (no questions)
 
 Check each with `ffmpeg -version`, `yt-dlp --version`, `python -c "import faster_whisper, numpy"`. Install only what is missing:
 
 - ffmpeg. Windows: `winget install --id Gyan.FFmpeg -e --source winget`. macOS: `brew install ffmpeg`. Linux: `sudo apt install -y ffmpeg`
-- Python packages, all systems: `python -m pip install -U -r "${CLAUDE_PLUGIN_ROOT}/requirements.txt"` (faster-whisper, numpy, requests and a fresh yt-dlp; the scripts prefer the pip yt-dlp, because an old yt-dlp gets HTTP 403 from YouTube)
+- Python packages, all systems: `python -m pip install -U -r requirements.txt` (faster-whisper, numpy, requests and a fresh yt-dlp; the scripts prefer the pip yt-dlp, because an old yt-dlp gets HTTP 403 from YouTube)
 - Re-run the pip line once a week: YouTube changes often and yt-dlp updates follow.
 
 If a winget/brew/apt install needs a new terminal for PATH, say so in one line and re-check. Never spend money or add a card.
@@ -26,11 +31,12 @@ If a winget/brew/apt install needs a new terminal for PATH, say so in one line a
 
 If the human already gave an answer, do not ask it again. Skip the message if all four are known.
 
-## 3. Show the plan, ask ONE "yes"
+## 3. Create the page workspace
 
-List the folder you will create and the files in it, then ask for a single "yes". After the yes, create (in the current directory, in a folder named after the page):
+Tell the user which folder will be created. Create it in the current
+repository directory using the page name, then create these files inside it:
 
-- `playbook.md` (copy from `${CLAUDE_PLUGIN_ROOT}/skills/playbook/references/playbook.md` and fill the [BRACKETED] fields with the answers)
+- `playbook.md` (copy from `skills/playbook/references/playbook.md` and fill the [BRACKETED] fields with the answers)
 - `facts.md` (verified facts only, each with an official source link)
 - `idea-bank.md`, `watchlist.md`, `log.md`
 - `scoreboard.csv` with this header line only:

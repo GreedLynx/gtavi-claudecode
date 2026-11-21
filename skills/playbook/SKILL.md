@@ -5,16 +5,28 @@ description: Run the daily GTA 6 page routine from the full playbook. Use when t
 
 # Playbook
 
-1. Read `${CLAUDE_PLUGIN_ROOT}/skills/playbook/references/playbook.md`. If the page folder has its own `playbook.md`, read that one instead (it is the customized copy).
-2. If the page folder does not exist, run the `setup` skill first.
-3. Find where the page is: the kickoff day (section 17) or the normal daily schedule (section 9). Check `log.md` and `scoreboard.csv`.
-4. Run the day:
-   - Official sources first (section 5). Record each verified fact with its link in `facts.md`.
-   - Find material: `trend-radar`, `stream-finder`, `campaign-finder`.
-   - Cut clips: `moment-finder`, then `clip-cutter`, with hooks from `hook-writer`.
-   - Gate every clip with `rule-check`.
-   - Log and learn with `learning-loop`.
-5. Send the human ONE message with the exact caption, media path and credit for each post. They reply "yes" to approve. They post it themselves or schedule it. Never auto-upload.
-6. End the day with the short report (section 16): what posted, top post with numbers, one lesson, tomorrow's test.
+Run commands from the repository root. Read `AGENTS.md` first.
+Use `<page-folder>` for all page-specific files.
 
-Hard rules: no leaks, no "play early", no piracy, no GTA Online money or AFK bots, no invented facts or numbers, credit every creator, no earnings promises. Anything outside the normal mix needs the human's yes first.
+1. Read `<page-folder>/playbook.md` if it exists. Otherwise read
+   `skills/playbook/references/playbook.md`.
+2. If the page folder does not exist, read
+   `skills/setup/SKILL.md` and set up the page workspace first.
+3. Check `<page-folder>/log.md` and
+   `<page-folder>/scoreboard.csv` to determine the current stage.
+4. Run the day:
+   - Check current official sources. Record verified facts with links in
+     `<page-folder>/facts.md`.
+   - Before each workflow, read its file in `skills/<name>/SKILL.md`.
+     Use `campaign-finder`, `trend-radar`, and `stream-finder` as needed.
+   - Use `moment-finder`, `hook-writer`, and `clip-cutter` for an eligible
+     source. Check usage permission and complete campaign rules first.
+   - Use `rule-check` for each finished clip. Report automated and manual
+     checks separately.
+   - Use `learning-loop` only with real post and metric data.
+5. Show the user each prepared clip with its file path, caption, source,
+   creator credit, and any unresolved checks. Do not upload automatically.
+6. End with a report separating prepared clips from posts the user
+   confirms were published. Report metrics and payouts only when known.
+
+Hard rules: no leaks, no "play early", no piracy, no GTA Online money or AFK bots, no invented facts or numbers, credit every creator, no earnings promises.

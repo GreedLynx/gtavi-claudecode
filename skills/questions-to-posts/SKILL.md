@@ -5,19 +5,20 @@ description: Turn repeated fan questions (Reddit threads and comments on our own
 
 # Questions to posts
 
+Run commands from the repository root. Read `AGENTS.md` first.
+Use files inside the selected page folder for facts, ideas, and output.
+
 Finds the questions fans keep asking, checks whether `facts.md` answers them, and drafts HOW TO posts from verified facts only.
 
 ## Command
 
-Run from the page folder (where `facts.md` lives):
+Run from the repository root:
 
-```
-python scripts/questions.py --subs GTA6,GTA,GrandTheftAutoV --days 3 [--comments comments.txt] --out questions.md
-```
+`python scripts/questions.py --subs GTA6,GTA,GrandTheftAutoV --days 3 --facts <page-folder>/facts.md --ideas <page-folder>/idea-bank.md --out <page-folder>/questions.md`
 
-- `--comments comments.txt`: comments pasted from our own posts, one per line.
-- `--facts facts.md` (default), `--ideas idea-bank.md` (default), `--top 25`, `--min-count 1`.
-- Uses public Reddit JSON, 1 request per second, waits and retries on 429. If Reddit blocks it, paste comments into `comments.txt` and run again.
+If the user has supplied comments from their own posts, add
+`--comments <page-folder>/comments.txt`. Do not add that option if
+the file does not exist.
 
 ## What you get
 
@@ -27,9 +28,15 @@ python scripts/questions.py --subs GTA6,GTA,GrandTheftAutoV --days 3 [--comments
 
 ## After the run
 
-1. Read each draft. The script copies steps from `facts.md` lines; it cannot judge order or whether a line is really a step. Fix order, trim to 3 to 5 steps, keep the wording true to the fact.
+1. Read each draft. The script copies steps from `facts.md` lines; it
+   cannot judge order or whether a line is really a step. Fix the order
+   and keep the wording true to the fact. A keyword match is only a
+   candidate answer: confirm that the fact actually answers the question.
 2. For each unanswered cluster, find an official source and add it to `facts.md` with the link, then rerun.
-3. Run `rule-check` on the final text, then post. Same-day turnaround for repeated questions beats polish.
+3. Review each draft against its linked official sources and the
+destination platform's rules. `scripts/check.py` checks video files;
+it cannot validate a text-only post. Show the draft to the user.
+Do not post it automatically.
 
 ## Rules
 

@@ -5,6 +5,11 @@ description: Log posts and learn from real numbers using scoreboard.csv, learnin
 
 # Learning loop
 
+Read `AGENTS.md` first. Use the selected `<page-folder>` for
+`scoreboard.csv`, `learning.md`, `payouts.csv`, `log.md`, and
+`playbook.md`. Record a post only after the user confirms its URL,
+platform, and publication time. Never treat a prepared clip as a post.
+
 Files in the page folder: `scoreboard.csv` (one row per post), `learning.md` (Wins, Losses, Current Rules), `payouts.csv` (real payouts only), `log.md`.
 
 ## Rules
@@ -14,7 +19,9 @@ Files in the page folder: `scoreboard.csv` (one row per post), `learning.md` (Wi
 3. Reads at 12h, 24h and 72h fill views_12h, views_24h, views_72h, then likes, shares, replies, saves, followers_at_read.
 4. One test per day. Change one variable only (hook style, length, posting time, caption length, still vs clip). Name it in `test_name`.
 5. No verdict under 24 hours. Prefer the 72h read if the post is still moving.
-6. `payouts.csv`: record only amounts the campaign or platform actually shows. Never project earnings.
+6. Keep estimated or pending campaign amounts separate from payments
+   actually received. Record each amount with its source and status.
+   Never describe an estimate as a completed payout.
 
 ## Daily (evening)
 

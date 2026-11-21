@@ -5,16 +5,36 @@ description: Check a finished clip against technical specs, campaign rules and b
 
 # Rule check
 
-Run:
+Run commands from the repository root. Read `AGENTS.md` first.
 
-`python "${CLAUDE_PLUGIN_ROOT}/scripts/check.py" <clip.mp4> --campaign campaigns.md`
+For a personal technical test:
 
-It checks: length, 1080x1920, audio present, the campaign's rules from `campaigns.md`, and banned content (leaks, "play early", piracy).
+`python scripts/check.py jobs/<id>/edits/clip_<n>.mp4`
 
-Then:
+This checks only the rules implemented by `check.py`. A PASS without
+`--campaign` is not campaign approval.
 
-1. Show PASS or FAIL per check in a short list.
-2. On FAIL: fix the cause (re-cut with `clip-cutter`, add the credit, trim) and re-run. Do not argue with a failed check.
-3. Read the caption yourself too. It must credit the creator in the text, no invented facts, no "official" wording, and match the platform's caption rules in the playbook.
-4. The script cannot judge everything. If the campaign rules are `unknown` or missing, ask the human to paste them.
-5. Only after all checks pass, send the human the clip, caption and credit and wait for "yes". The human posts it. Never auto-upload.
+For a campaign clip, first obtain the complete rules for ONE campaign
+and save them in a separate file, for example
+`<page-folder>/campaign-rules/<campaign-name>.md`.
+Do not pass the combined `<page-folder>/campaigns.md` to `--campaign`.
+
+The script recognizes these fields when present:
+
+- `min_seconds: 15`
+- `max_seconds: 60`
+- `required_hashtags: #example`
+- `required_mention: @example`
+
+Then run:
+
+`python scripts/check.py jobs/<id>/edits/clip_<n>.mp4 --campaign <rules-file> --caption "CAPTION TEXT"`
+
+Review the campaign's full rules manually as well. The script does not
+verify footage permission, required overlays, CTA wording, approval
+process, or every prohibited-content rule. Mark those checks as
+unverified until their requirements are available and reviewed.
+
+Report each automated result and manual check separately. Do not say a
+clip is campaign-ready when required rules or assets are missing.
+Do not upload automatically.
