@@ -6,3 +6,6 @@ test/
 *.wav
 *.ts
 !docs/*.mp4
+gta-vi-momen-indo/
+streams.md
+trends.md
